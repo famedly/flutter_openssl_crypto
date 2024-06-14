@@ -1,3 +1,7 @@
+## 0.4.0
+- chore: Add codeowners (Krille)
+- chore: upgrade gradle version (Mohammad Reza Moradi)
+
 ## 0.3.0
 - chore: upgrade Android project to latest gradle (The one with the braid)
 - ci: fix release pipeline (Karthikeyan S)
