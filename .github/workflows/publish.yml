@@ -20,7 +20,7 @@ jobs:
       # Setup Dart SDK with JWT token
       - uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.35.3'
           channel: stable
           cache: true
       # Minimal package setup and dry run checks
