@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.1'
+        classpath 'com.android.tools.build:gradle:8.8.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -42,12 +42,12 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        compileSdk 33
+        compileSdk 35
         minSdkVersion 21
 
         externalNativeBuild {
             cmake {
-                arguments "-DANDROID_STL=c++_shared"
+                arguments "-DANDROID_STL=c++_shared", "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
             }
         }
     }
@@ -80,6 +80,17 @@ android {
                outputs.upToDateWhen {false}
                showStandardStreams = true
             }
+        }
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            def taskName = "repack${variant.name.capitalize()}JniLibs"
+            task(taskName, Copy) {
+                from("$buildDir/intermediates/merged_jni_libs/${variant.name}/out")
+                into("$buildDir/intermediates/merged_jni_libs/${variant.name}/out")
+            }
+            variant.assembleProvider.configure { dependsOn(tasks.named(taskName)) }
         }
     }
 }
