@@ -82,15 +82,7 @@ android {
             }
         }
     }
-
-    libraryVariants.all { variant ->
-        variant.outputs.each { output ->
-            def taskName = "repack${variant.name.capitalize()}JniLibs"
-            task(taskName, Copy) {
-                from("$buildDir/intermediates/merged_jni_libs/${variant.name}/out")
-                into("$buildDir/intermediates/merged_jni_libs/${variant.name}/out")
-            }
-            variant.assembleProvider.configure { dependsOn(tasks.named(taskName)) }
-        }
+    packagingOptions {
+        useLegacyPackaging = false
     }
 }
